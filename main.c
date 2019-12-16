@@ -1,32 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include "lib.h"
 
 int main(int argc, char **argv)
 {
-	int *xs;
+	int *xs = NULL;
+	int size = 0;
 	int len = 0;
-	int size = 16;
-	int *tmp;
-	int cur, i;
-	xs = malloc(size * sizeof(*xs));
-	if (!xs) {
-		fprintf(stderr, "malloc error\n");
-		return 1;
-	}
-	while (scanf("%d", &cur) > 0) {
-		if (len == size) {
-			tmp = realloc(xs, 2 * size * sizeof(*xs));
-			if (!tmp) {
-				free(xs);
-				fprintf(stderr, "malloc error\n");
-				return 1;
-			}
-			xs = tmp;
-			size = 2 * size;
+	int i;
+	if (read_array(&xs, &size, &len) < 0) {
+		if (errno == ENOMEM) {
+			fprintf(stderr, "out of memory\n");
+		} else {
+			fprintf(stderr, "failed to read numbers\n");
 		}
-		xs[len++] = cur;
-
+		free(xs);
+		return 1;
 	}
 	sort(xs, len);
 	for (i = 0; i < len; ++i) {
