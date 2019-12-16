@@ -15,7 +15,7 @@ void sort(int *xs, int n)
 	for (i = 0; i < n; ++i) {
 		min = i;
 		for (j = i + 1; j < n; ++j) {
-			if (xs[j] < xs[i]) {
+			if (xs[j] < xs[min]) {
 				min = j;
 			}
 		}
