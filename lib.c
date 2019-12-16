@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "lib.h"
 
-static int grow_array(int **xs, int *size, int new_size)
+static int grow_array(int **xs, size_t *size, size_t new_size)
 {
 	int *tmp;
 	if (new_size <= *size) {
@@ -17,7 +17,7 @@ static int grow_array(int **xs, int *size, int new_size)
 	return 0;
 }
 
-int read_array(int **xs, int *size, int *len)
+int read_array(int **xs, size_t *size, size_t *len)
 {
 	int cur, err, nread;
 	*len = 0;
@@ -44,10 +44,10 @@ static void swap(int *a, int *b)
 }
 
 // sort function uses the selection sort algorithm
-void sort(int *xs, int n)
+void sort(int *xs, size_t n)
 {
-	int i, j;
-	int min;
+	size_t i, j;
+	size_t min;
 	for (i = 0; i < n; ++i) {
 		min = i;
 		for (j = i + 1; j < n; ++j) {
